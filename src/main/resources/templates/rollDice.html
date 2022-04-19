@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<header th:include="partials :: header"></header>
+
+<style>
+    a{
+        font-size: larger;
+        color: black;
+    }
+</style>
+
+<body>
+<nav th:include="partials :: navbar"></nav>
+
+<div class="text-center"><h1>Pick a number</h1></div>
+<div class="d-flex justify-content-around row mt-4">
+    <a id="1" href="/roll-dice/1">1</a>
+    <a id="2" href="/roll-dice/2">2</a>
+    <a id="3" href="/roll-dice/3">3</a>
+    <a id="4" href="/roll-dice/4">4</a>
+    <a id="5" href="/roll-dice/5">5</a>
+    <a id="6" href="/roll-dice/6">6</a>
+</div>
+
+<div class="mt-5 text-center" th:switch="${pick}">
+    <h1 th:case="null">You haven't picked a number yet..</h1>
+    <h1 th:case="${pick}">You picked #<span th:text="${pick}"></span></h1>
+</div>
+<br>
+
+
+<div class="mt-5 text-center" th:switch="${pick}">
+    <h1 th:case="null">Random # will be shown here after pick</h1>
+    <h1 th:case="${pick}">The Random # was <span th:text="${random}"></span></h1>
+</div>
+<br>
+
+
+<div class="mt-5 text-center">
+    <h1>
+        <span th:if="${pick == null}">Pick a number to see if you're correct</span>
+        <span th:if="${pick == random}">Lucky Guess!</span>
+        <span th:if="${pick != random}">Better luck next time...</span>
+    </h1>
+</div>
+
+<footer th:include="partials :: footer"></footer>
+</body>
+</html>
