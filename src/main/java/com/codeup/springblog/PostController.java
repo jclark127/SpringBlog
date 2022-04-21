@@ -15,31 +15,45 @@ public class PostController {
     }
 
 
-    @RequestMapping(path = "/posts", method = RequestMethod.GET)
+    @GetMapping(path = "/posts")
     public String posts(Model model){
         model.addAttribute("posts", postDao.findAll());
         return "posts/index";
     }
 
-    @RequestMapping(path = "/posts/{id}", method = RequestMethod.GET)
+    @GetMapping(path = "posts/{id}")
     public String individualPosts(@PathVariable String id, Model model){
 
         model.addAttribute("posts", postDao.getById(Long.parseLong(id)));
         return "posts/show";
     }
 
-    @RequestMapping(path = "/create", method = RequestMethod.GET)
-    public String createGet(Model model){
-
+    @GetMapping("/posts/create")
+    public String postsCreate(Model model){
+        model.addAttribute("post", new Post());
         return "posts/create";
     }
 
-    @RequestMapping(path = "/create", method = RequestMethod.POST)
-    public String createPost(@RequestParam("title") String title, @RequestParam("body") String body){
-        Post post = new Post(title, body, new User(1,"User1", "j@b.com", "pass"));
+    @PostMapping("/posts/create")
+    public String createPost(@ModelAttribute Post post){
+        User user = userDao.getById((long) 1);
+        post.setOwner(user);
         postDao.save(post);
-        return "redirect:/posts/" + post.getId();
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/posts/{id}/edit")
+    public String postsEdit(@PathVariable long id, Model model){
+        model.addAttribute("post", postDao.getById(id));
+        return "posts/edit";
     }
 
 
+    @PostMapping("/posts/edit")
+    public String updatePost(@ModelAttribute Post post){
+        User user = userDao.getById((long) 1);
+        post.setOwner(user);
+        postDao.save(post);
+        return "redirect:/posts";
+    }
 }
