@@ -9,4 +9,5 @@ public interface AdRepository extends JpaRepository <Ad,Long>{
 //
 //    @Query(value = "SELECT * FROM ad", nativeQuery = true)
 //    Ad allOfit();
+
 }
