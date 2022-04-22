@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
     private final PostsRepository postDao;
     private final UserRepository userDao;
+    private final EmailService emailService;
 
-    public PostController(PostsRepository postDao, UserRepository userDao) {
+
+
+    public PostController(PostsRepository postDao, UserRepository userDao,EmailService emailService) {
         this.postDao = postDao;
         this.userDao = userDao;
+        this.emailService = emailService;
     }
 
 
@@ -39,6 +43,7 @@ public class PostController {
         User user = userDao.getById((long) 1);
         post.setOwner(user);
         postDao.save(post);
+        emailService.prepareAndSend(post, "New post created!!!!",post.getBody());
         return "redirect:/posts";
     }
 
@@ -53,6 +58,7 @@ public class PostController {
     public String updatePost(@ModelAttribute Post post){
         User user = userDao.getById((long) 1);
         post.setOwner(user);
+        emailService.prepareAndSend(post, "Post has been Edited!!!!",post.getBody());
         postDao.save(post);
         return "redirect:/posts";
     }
