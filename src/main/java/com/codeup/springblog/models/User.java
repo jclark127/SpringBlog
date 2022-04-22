@@ -1,4 +1,4 @@
-package com.codeup.springblog;
+package com.codeup.springblog.models;
 
 import javax.persistence.*;
 
@@ -10,10 +10,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -72,4 +72,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

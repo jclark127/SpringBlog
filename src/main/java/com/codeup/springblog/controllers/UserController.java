@@ -1,5 +1,7 @@
-package com.codeup.springblog;
+package com.codeup.springblog.controllers;
 
+import com.codeup.springblog.models.User;
+import com.codeup.springblog.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,8 +27,11 @@ public class UserController {
 
     @PostMapping("/sign-up")
     public String saveUser(@ModelAttribute User user){
+        System.out.println("user.getPassword() = " + user.getPassword());
         String hash = passwordEncoder.encode(user.getPassword());
+
         user.setPassword(hash);
+        System.out.println("user.getPassword() [HASH***]= " + user.getPassword());
         userDao.save(user);
         return "redirect:/login";
     }

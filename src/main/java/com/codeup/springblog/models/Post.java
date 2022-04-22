@@ -1,4 +1,4 @@
-package com.codeup.springblog;
+package com.codeup.springblog.models;
 
 import javax.persistence.*;
 
@@ -15,10 +15,11 @@ public class Post {
     @Column(nullable = false)
     private String body;
 
-
-
     @OneToOne
     private User owner;
+
+    public Post() {
+    }
 
     public Post(long id, String title, String body, User owner) {
         this.id = id;
@@ -26,13 +27,12 @@ public class Post {
         this.body = body;
         this.owner = owner;
     }
+
     public Post(String title, String body, User owner) {
         this.title = title;
         this.body = body;
         this.owner = owner;
     }
-
-    public Post (){}
 
     public Post(long id, String title, String body) {
         this.id = id;
