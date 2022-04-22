@@ -62,7 +62,7 @@ public class PostController {
 
     @PostMapping("/posts/edit")
     public String updatePost(@ModelAttribute Post post){
-        User user = userDao.getById((long) 1);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setOwner(user);
         emailService.prepareAndSend(post, "Post has been Edited!!!!",post.getBody());
         postDao.save(post);
