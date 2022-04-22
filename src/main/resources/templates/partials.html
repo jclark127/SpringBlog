@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:fragment="header(title)">
     <meta charset="UTF-8"/>
@@ -33,6 +34,9 @@
                 </li>
             </ul>
         </div>
+        <form class="form-inline"  th:action="@{/logout}" th:method="post">
+            <button class="btn btn-outline-primary my-2 my-sm-0" style="margin-top: 8px">Logout</button>
+        </form>
     </nav>
 </nav>
 
